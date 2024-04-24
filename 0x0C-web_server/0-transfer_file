@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Write a Bash script that transfers a file from our client to a server
+if [ "$#" -lt 4 ]; then
+   echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+   exit 1
+fi
+PATH_FILE=$1
+IP=$2
+USER_NAME=$3
+SSH_PATH_KEY=$4
+
+scp -o StrictHostKeyChecking=no -i "$SSH_PATH_KEY" "$PATH_FILE" "$USER_NAME@$IP:~/"
+if [ $? -eq 0 ]; then
+   echo "File transferred successfully."
+else
+   echo "File transfer failed."
+
