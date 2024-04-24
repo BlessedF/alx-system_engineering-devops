@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Web servers are the piece of software
+
+# Updating the server
+apt-get -y update
+
+# Installing Nginx
+apt-get -y install nginx
+
+# Echo an hello world
+echo 'Hello World!' > sudo tee /var/www/html/index.html
+
+# Declare a variable that redirects 
+# my site to your server
+redirect_var="server_name _;\n\trewrite ^\/redirect_me https:\/\/agedevs.netlify.app permanent;"
+
+# Command that actually redirects my site to my server
+sed -i "s/server_name _;/$redirect_var/" /etc/nginx/sites-enabled/default
+
+# Starting Nginx server
+service nginx start:wq
+
